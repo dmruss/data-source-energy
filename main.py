@@ -1,15 +1,24 @@
 import os
 import sys
 import logging
+import argparse
 
 from src.DataSource import DataSource
-from src.config import *
+from config import *
 
 os.environ['DEST_LAMBDA_ARN'] = DEST_LAMBDA_ARN
 
 logging.basicConfig()
 logger = logging.getLogger('main')
 logger.setLevel(LOG_LEVEL)
+
+parser = argparse.ArgumentParser(
+    prog='DataSource',
+    description='A command line tool to generate lambda events from csv files.'
+)
+
+parser.add_argument('filename')
+parser.add_argument('directoryPath')
 
 
 
@@ -19,10 +28,8 @@ def main(data_source: DataSource):
 
 
 if __name__ == '__main__':
-    try:
-        file_name = sys.argv[1]
-        print(file_name)
-    except Exception as e:
-        raise Exception('No file name provided')
+    args = parser.parse_args()
+    logger.debug(f'arg object: {args}')
+    logger.debug(args.filename)
 
-    main(DataSource(file_name))
+    main(DataSource(args.filename, args.directoryPath))

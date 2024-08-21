@@ -2,7 +2,7 @@ import boto3
 import logging
 import json
 
-from src.config import *
+from config import *
 
 logging.basicConfig()
 logger = logging.getLogger('LambdaClient')

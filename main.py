@@ -1,40 +1,21 @@
 import os
 import sys
-import time
 import logging
-import boto3
 
-from DataSource import DataSource
+from src.DataSource import DataSource
+from src.config import *
 
-DEST_ARN = os.getenv('DEST_LAMBDA_ARN')
+os.environ['DEST_LAMBDA_ARN'] = DEST_LAMBDA_ARN
 
 logging.basicConfig()
 logger = logging.getLogger('main')
-logger.setLevel('DEBUG')
+logger.setLevel(LOG_LEVEL)
 
-# lambda_client = boto3.client('lambda')
 
 
 def main(data_source: DataSource):
 
-    with open(f'data/{data_source.file_name}', 'r') as fe:
-        cols_energy = fe.readline()
-        # logger.debug(cols)
-        for line in fe:
-            next_line = fe.readline()
-            # logger.debug(next_line)
-            time.sleep(5)
-
-            event = {'cols': cols_energy, 'record': next_line}
-            print(event)
-
-            # response = lambda_client.invoke(
-            #     FunctionName=DEST_ARN,
-            #     InvocationType='Event',
-            #     Payload=event
-            # )
-
-
+    data_source.readLineEventLoop(5)
 
 
 if __name__ == '__main__':

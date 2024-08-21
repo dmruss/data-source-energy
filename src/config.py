@@ -1,0 +1,2 @@
+DEST_LAMBDA_ARN='fakeVal'
+LOG_LEVEL='DEBUG'

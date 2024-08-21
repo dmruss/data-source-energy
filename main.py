@@ -6,8 +6,6 @@ import argparse
 from src.DataSource import DataSource
 from config import *
 
-os.environ['DEST_LAMBDA_ARN'] = DEST_LAMBDA_ARN
-
 logging.basicConfig()
 logger = logging.getLogger('main')
 logger.setLevel(LOG_LEVEL)

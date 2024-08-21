@@ -30,6 +30,6 @@ class DataSource:
                 event = {'cols': cols, 'record': next_line}
                 logger.debug(event)
 
-                LambdaClient().invokeAsync(os.getenv('DEST_LAMBDA_ARN'), event)
+                LambdaClient().invokeAsync(DEST_LAMBDA_ARN, event)
 
                 time.sleep(sleep_seconds)
